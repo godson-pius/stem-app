@@ -55,7 +55,7 @@ const Register = () => {
                 <Text style={defaultStyle.buttonText}>Next</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity className={'font-medium mt-3'} onPress={() => navigation.push('/(registration)')}>
+            <TouchableOpacity className={'font-medium mt-3'} onPress={() => navigation.push('/(auth)')}>
                 <Text>Already registered? Login</Text>
             </TouchableOpacity>
 

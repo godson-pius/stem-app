@@ -206,8 +206,8 @@ const countries = [
 ];
 const classes = [
     { value: 'ss1', label: 'SS1' },
-    { value: 'ss3', label: 'SS2' },
-    { value: 'ss2', label: 'SS3' },
+    { value: 'ss2', label: 'SS2' },
+    { value: 'ss3', label: 'SS3' },
 ]
 
 const SecondReg = () => {
@@ -227,7 +227,7 @@ const SecondReg = () => {
             role: "student"
         }
         const res = await addUserToDb(data);
-        if (res) {
+        if (res.success) {
             setLoading(false)
             await storeData("userData", data)
             return navigation.navigate({
@@ -235,8 +235,8 @@ const SecondReg = () => {
                 params: {studentClass}
             })
         }
-        Alert.alert("Failed to submit Data! Try again!")
-
+        Alert.alert(res.message)
+        setLoading(false)
     }
 
     return (

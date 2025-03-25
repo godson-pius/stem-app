@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {defaultStyle} from "@/utils/defaultStyle";
 import {loginUser} from "@/utils/firestore";
-import {storeData} from "@/utils/storage";
+import {readData, storeData} from "@/utils/storage";
 import {useRouter} from "expo-router";
 
 const Index = () => {
     const [email, setEmail] = useState<string>()
     const [password, setPassword] = useState<string>()
     const [loading, setLoading] = useState<boolean>(false)
+    const [launch, setLaunch] = useState<boolean>(false)
     const navigation = useRouter()
 
-    // Handle the register submit
+    // Handle the login submit
     const handleSubmit = async () => {
         setLoading(true)
         const data = {
@@ -23,14 +24,36 @@ const Index = () => {
             console.log(res)
             setLoading(false)
 
-            await storeData("userData", data)
+            await storeData("userData", res)
             return navigation.navigate({
                 pathname: '/(tabs)',
                 params: {studentClass: res.studentClass}
             })
         }
-        Alert.alert("Failed to register! Try again!")
+        Alert.alert("Auth Failed! Try again!")
+        setLoading(false)
+    }
 
+    useEffect(() => {
+        (async () => {
+            setLaunch(true)
+            const userData = await readData("userData")
+            if (userData) {
+                return navigation.navigate({
+                    pathname: '/(tabs)',
+                    params: {studentClass: userData.studentClass}
+                })
+            }
+            setLaunch(false)
+        })()
+    }, [])
+
+    if (launch) {
+        return (
+            <View className={'flex justify-center items-center'}>
+                <ActivityIndicator size={"small"} className={'my-5 text-blue-900'} />
+            </View>
+        )
     }
 
     return (

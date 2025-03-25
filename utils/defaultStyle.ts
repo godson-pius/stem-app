@@ -38,6 +38,15 @@ export const defaultStyle = StyleSheet.create({
         fontFamily: 'epilogue-m'
     },
 
+    select: {
+        width: 280,
+        borderColor: '#CCA45C',
+        borderBottomWidth: 1,
+        paddingBottom: 8,
+        fontSize: 17,
+        fontFamily: 'epilogue-m'
+    },
+
     text: {
         fontFamily: 'epilogue'
     },

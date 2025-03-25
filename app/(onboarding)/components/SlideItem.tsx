@@ -24,7 +24,7 @@ const SlideItem = ({ data }: SlideItemProps) => {
                 <Text style={styles.middleText}>{data.text2}</Text>
 
 
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('/(registration)')}>
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('/(auth)')}>
                     <Text style={styles.btnText}>Next</Text>
                 </TouchableOpacity>
             </View>
