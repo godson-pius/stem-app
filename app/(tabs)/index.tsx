@@ -1,74 +1,118 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { defaultStyle } from '@/utils/defaultStyle';
+import { Ionicons } from '@expo/vector-icons';
+import { Image, StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { useState } from 'react';
+import Subjects from '../components/Subjects';
+import { subjectData } from '@/utils/fakeData';
 
 export default function HomeScreen() {
+  const subjects = subjectData
+  const bgimage = '@/assets/images/bgdesign.png'
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView>
+      <View>
+        {/* Header */}
+        <View style={[styles.container]}>
+          <Text style={defaultStyle.text}>SS1</Text>
+          <Ionicons name='notifications-outline' size={25} />
+        </View>
+
+        {/* Search */}
+        <TextInput placeholder='What would you like to learn' style={styles.searchInput} />
+
+        {/* Subjects */}
+        <View style={styles.subjects}>
+          {subjects.map((subject, index) => (
+            <Subjects key={index} subject={subject} />
+          ))}
+        </View>
+
+        {/* Banner for practice exams */}
+        <View style={{ borderRadius: 30 }}>
+          <ImageBackground source={{ uri: 'https://img.freepik.com/premium-photo/stepping-into-success-school-books-accessories-graduation-vibes-light-blue-3d-rendering_930407-5388.jpg?w=2000' }} resizeMode='cover' style={styles.practiceContainer}>
+            <View style={styles.practice}>
+              <Text style={[defaultStyle.text, styles.text]}>Practice exams for perfect grades. Practice makes perfect!</Text>
+              <TouchableOpacity style={styles.practiceBtn}>
+                <Text style={{ fontFamily: 'epilogue-m' }}>Practice Exams</Text>
+              </TouchableOpacity>
+            </View>
+            {/* <Ionicons name='calendar-outline' size={80} style={{ marginLeft: -70 }} /> */}
+          </ImageBackground>
+        </View>
+        
+        {/* Banner for practice exams */}
+        <View style={{ borderRadius: 30 }}>
+          <ImageBackground source={{ uri: 'https://img.freepik.com/premium-photo/stepping-into-success-school-books-accessories-graduation-vibes-light-blue-3d-rendering_930407-5388.jpg?w=2000' }} resizeMode='cover' style={styles.practiceContainer}>
+            <View style={styles.practice}>
+              <Text style={[defaultStyle.text, styles.text]}>Take quiz for perfection. Practice makes perfect!</Text>
+              <TouchableOpacity style={styles.practiceBtn}>
+                <Text style={{ fontFamily: 'epilogue-m' }}>Take Quiz</Text>
+              </TouchableOpacity>
+            </View>
+            {/* <Ionicons name='calendar-outline' size={80} style={{ marginLeft: -70 }} /> */}
+          </ImageBackground>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    justifyContent: 'space-between',
     flexDirection: 'row',
+    paddingHorizontal: 25,
+  },
+
+  searchInput: {
+    borderWidth: 2,
+    marginHorizontal: 25,
+    marginTop: 20,
+    padding: 13,
+    borderRadius: 100,
+    fontFamily: 'epilogue',
+  },
+
+  subjects: {
+    marginTop: 20,
+    paddingHorizontal: 18,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+
+  practiceContainer: {
+    borderRadius: 12,
+    backgroundColor: 'skyblue',
+    flexDirection: 'row',
+    marginHorizontal: 25,
+    marginTop: 30,
+    padding: 20,
+    height: 160,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+
+  practice: {
+    width: 200,
+    // marginLeft: 30,
+  },
+
+  practiceBtn: {
+    backgroundColor: '#fff',
+    width: 150,
+    padding: 14,
+    borderRadius: 6,
+    // position: 'absolute',
+    // bottom: 0,
+    marginTop: 13,
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+
+  text: {
+    fontSize: 15,
+    fontFamily: 'epilogue-m',
+    color: '#000',
+  }
+
 });
