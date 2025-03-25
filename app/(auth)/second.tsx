@@ -205,9 +205,9 @@ const countries = [
     { value: 'Zimbabwe', label: 'ZW' },
 ];
 const classes = [
-    { value: 'ss1', label: 'SS1' },
-    { value: 'ss2', label: 'SS2' },
-    { value: 'ss3', label: 'SS3' },
+    { value: 'SS1', label: 'SS1' },
+    { value: 'SS2', label: 'SS2' },
+    { value: 'SS3', label: 'SS3' },
 ]
 
 const SecondReg = () => {
@@ -222,7 +222,7 @@ const SecondReg = () => {
         const getSavedData = await readData("userData")
         const data = {
             ...getSavedData,
-            studentClass,
+            studentClass: studentClass.toLowerCase(),
             country,
             role: "student"
         }
