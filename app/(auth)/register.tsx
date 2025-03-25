@@ -30,7 +30,7 @@ const Register = () => {
             <View style={{marginTop: 60}}>
                 <Text style={[defaultStyle.label]}>Enter username</Text>
                 <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value, "username")}/>
+                           onChangeText={(value: string) => handleInput(value.toLowerCase(), "username")}/>
             </View>
 
             <View style={{marginTop: 30}}>
