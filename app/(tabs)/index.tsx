@@ -39,7 +39,7 @@ export default function HomeScreen() {
 
     const getCourse = async () => {
         const args = {
-            classname: params.studentClass
+            classname: params.studentClass.toString().toLowerCase()
         }
         const res = await getAllCourse(args)
         setSubjects(res)

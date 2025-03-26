@@ -30,7 +30,7 @@ const lectures = () => {
     }
 
     const courseDetails = {
-      classname: 'ss2',
+      classname: args.classname,
       name: args.name
     }
     const res = await getAllTopicsForACourse(courseDetails)
@@ -65,6 +65,7 @@ const lectures = () => {
             renderItem={({ item }) => <Topic course={args.name} topic={item} />}
             contentContainerStyle={{ paddingBottom: 10 }}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            ListEmptyComponent={<Text className={'font-medium'}>No Topics yet!</Text>}
             style={{ height: '100%' }}
           />
         </View>

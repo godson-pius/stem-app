@@ -1,12 +1,14 @@
 export interface ISubject
 {
     color: string,
-    name: string
+    name: string,
+    classname: string,
 }
 
 export interface ITopic {
     title: string,
     desc: string,
+    classname: string,
 }
 
 export interface IVideo {

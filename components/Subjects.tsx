@@ -5,7 +5,7 @@ import { defaultStyle } from '@/utils/defaultStyle'
 import {useRouter} from "expo-router";
 
 interface SubjectProps {
-    subject: { color: string, name: string }
+    subject: { color: string, name: string, classname: string }
 }
 
 const Subjects = ({ subject }: SubjectProps) => {
@@ -14,7 +14,7 @@ const Subjects = ({ subject }: SubjectProps) => {
         <TouchableOpacity
         onPress={() => router.push({
             pathname: '/lectures',
-            params: {name: subject.name}
+            params: {name: subject.name, classname: subject.classname}
         })}
             style={styles.container}
         >

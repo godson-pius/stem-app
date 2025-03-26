@@ -15,7 +15,7 @@ const Topic = ({topic, course}: TopicProps) => {
     return (
         <TouchableOpacity style={styles.container} onPress={() => router.navigate({
             pathname: '/videos',
-            params: { course, topic: topic.title, classname: 'ss2' }
+            params: { course, topic: topic.title, classname: topic.classname }
         })}>
             <Ionicons name='bookmarks-outline' size={25}/>
             <View>

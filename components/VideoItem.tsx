@@ -9,8 +9,6 @@ interface Props {
 }
 
 const VideoItem = ({video}: Props) => {
-    const videoSource = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-    const VIDEO_ID = 'WJig9J19w1g';
 
     return (
         <>
