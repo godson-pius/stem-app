@@ -73,7 +73,7 @@ export default function HomeScreen() {
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
                 {/* Header */}
                 <View style={[styles.container]}>
-                    <Text style={defaultStyle.text} className={'font-medium'}>Welcome back, {userData?.username}</Text>
+                    <Text style={defaultStyle.text} className={'font-medium'}>Welcome back, {userData?.fullname}</Text>
                     {/*<Text style={defaultStyle.text}>{userData?.studentClass.toUpperCase()}</Text>*/}
                     <Ionicons name='log-out-outline' size={25} color={'red'} onPress={handleLogout}/>
                 </View>

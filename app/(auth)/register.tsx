@@ -4,6 +4,7 @@ import {defaultStyle} from '@/utils/defaultStyle'
 import {useRouter} from 'expo-router'
 import {addUserToDb} from "@/utils/firestore";
 import {storeData} from "@/utils/storage";
+import {password} from "@firebase/auth/dist/test/helpers/integration/helpers";
 
 const Register = () => {
     const navigation = useRouter()
@@ -28,9 +29,15 @@ const Register = () => {
             <Text style={defaultStyle.text}>Geanco Stems</Text>
 
             <View style={{marginTop: 60}}>
+                <Text style={[defaultStyle.label]}>Enter Full Name</Text>
+                <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                           onChangeText={(value: string) => handleInput(value, "fullname")}/>
+            </View>
+
+            <View style={{marginTop: 30}}>
                 <Text style={[defaultStyle.label]}>Enter username</Text>
                 <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value.toLowerCase(), "username")}/>
+                           onChangeText={(value: string) => handleInput(value.toLowerCase().replaceAll(' ', '-'), "username")}/>
             </View>
 
             <View style={{marginTop: 30}}>
@@ -39,16 +46,10 @@ const Register = () => {
                            onChangeText={(value: string) => handleInput(value, "email")}/>
             </View>
 
-            <View style={{marginTop: 30}}>
+            <View style={{marginTop: 30, marginBottom: 40}}>
                 <Text style={[defaultStyle.label]}>Enter phone number</Text>
                 <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
                            onChangeText={(value: string) => handleInput(value, "number")}/>
-            </View>
-
-            <View style={{marginTop: 30, marginBottom: 40}}>
-                <Text style={[defaultStyle.label]}>Enter password</Text>
-                <TextInput secureTextEntry={true} autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value, "password")}/>
             </View>
 
             <TouchableOpacity style={defaultStyle.button} onPress={handleSubmit}>

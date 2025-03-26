@@ -18,6 +18,7 @@ export interface IVideo {
 }
 
 export interface IStudent {
+    fullname: string,
     country: string,
     email: string,
     number: string,

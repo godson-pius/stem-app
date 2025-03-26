@@ -214,6 +214,7 @@ const SecondReg = () => {
     const navigation = useRouter()
     const [studentClass, setStudentClass] = useState("")
     const [country, setCountry] = useState("")
+    const [password, setPassword] = useState("")
     const [loading, setLoading] = useState<boolean>(false)
 
     // Handle the registration submit
@@ -224,6 +225,7 @@ const SecondReg = () => {
             ...getSavedData,
             studentClass: studentClass.toLowerCase(),
             country,
+            password,
             role: "student"
         }
         const res = await addUserToDb(data);
@@ -258,7 +260,7 @@ const SecondReg = () => {
                 />
             </View>
 
-            <View style={{ marginTop: 30, marginBottom: 40 }}>
+            <View style={{ marginTop: 30 }}>
                 <SelectList
                     setSelected={(val: string) => setCountry(val)}
                     data={countries}
@@ -269,6 +271,12 @@ const SecondReg = () => {
                     dropdownTextStyles={{ fontSize: 20 }}
                     arrowicon={<Ionicons name='chevron-down' size={20} />}
                 />
+            </View>
+
+            <View style={{marginTop: 30, marginBottom: 40}}>
+                <Text style={[defaultStyle.label]}>Enter password</Text>
+                <TextInput secureTextEntry={true} autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                           onChangeText={(value: string) => setPassword(value)}/>
             </View>
 
             { !loading ? (
