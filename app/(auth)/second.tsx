@@ -1,4 +1,15 @@
-import {Alert, Dimensions, Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator} from 'react-native'
+import {
+    Alert,
+    Dimensions,
+    Image,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    ActivityIndicator,
+    KeyboardAvoidingView, ScrollView, Platform
+} from 'react-native'
 import React, {useState} from 'react'
 import {defaultStyle} from '@/utils/defaultStyle'
 import {useRouter} from 'expo-router'
@@ -215,6 +226,7 @@ const SecondReg = () => {
     const [studentClass, setStudentClass] = useState("")
     const [country, setCountry] = useState("")
     const [password, setPassword] = useState("")
+    const [hidePassword, setHidePassword] = useState<boolean>(true)
     const [loading, setLoading] = useState<boolean>(false)
 
     // Handle the registration submit
@@ -242,54 +254,64 @@ const SecondReg = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Image style={styles.image} source={require('@/assets/images/logo.png')}/>
-            <Text style={[defaultStyle.text, styles.title]}>Start Learning</Text>
-            <Text style={defaultStyle.text}>Geanco Stems</Text>
+       <KeyboardAvoidingView
+           style={{ flex: 1 }}
+           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+       >
+           <ScrollView>
+               <View style={styles.container}>
+                   <Image style={styles.image} source={require('@/assets/images/logo.png')}/>
+                   <Text style={[defaultStyle.text, styles.title]}>Start Learning</Text>
+                   <Text style={defaultStyle.text}>Geanco STEM</Text>
 
-            <View style={{ marginTop: 60 }}>
-                <SelectList
-                    setSelected={(val: string) => setStudentClass(val)}
-                    data={classes}
-                    save="value"
-                    boxStyles={{ borderWidth: 0 }}
-                    inputStyles={defaultStyle.select}
-                    placeholder={"Select class"}
-                    dropdownTextStyles={{ fontSize: 20 }}
-                    arrowicon={<Ionicons name='chevron-down' size={20} />}
-                />
-            </View>
+                   <View style={{ marginTop: 60 }}>
+                       <SelectList
+                           setSelected={(val: string) => setStudentClass(val)}
+                           data={classes}
+                           save="value"
+                           boxStyles={{ borderWidth: 0 }}
+                           inputStyles={defaultStyle.select}
+                           placeholder={"Select class"}
+                           dropdownTextStyles={{ fontSize: 20 }}
+                           arrowicon={<Ionicons name='chevron-down' size={20} />}
+                       />
+                   </View>
 
-            <View style={{ marginTop: 30 }}>
-                <SelectList
-                    setSelected={(val: string) => setCountry(val)}
-                    data={countries}
-                    save="value"
-                    boxStyles={{ borderWidth: 0 }}
-                    inputStyles={defaultStyle.select}
-                    placeholder={"Select Country"}
-                    dropdownTextStyles={{ fontSize: 20 }}
-                    arrowicon={<Ionicons name='chevron-down' size={20} />}
-                />
-            </View>
+                   <View style={{ marginTop: 30 }}>
+                       <SelectList
+                           setSelected={(val: string) => setCountry(val)}
+                           data={countries}
+                           save="value"
+                           boxStyles={{ borderWidth: 0 }}
+                           inputStyles={defaultStyle.select}
+                           placeholder={"Select Country"}
+                           dropdownTextStyles={{ fontSize: 20 }}
+                           arrowicon={<Ionicons name='chevron-down' size={20} />}
+                       />
+                   </View>
 
-            <View style={{marginTop: 30, marginBottom: 40}}>
-                <Text style={[defaultStyle.label]}>Enter password</Text>
-                <TextInput secureTextEntry={true} autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => setPassword(value)}/>
-            </View>
+                   <View style={{marginTop: 30, marginBottom: 40}}>
+                       <Text style={[defaultStyle.label]}>Enter password</Text>
+                       <View className={'flex flex-row items-center'} style={{width: 300}}>
+                           <TextInput secureTextEntry={hidePassword} autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                                      onChangeText={(value: string) => setPassword(value)}/>
+                           <Ionicons name={hidePassword ? 'eye' : 'eye-off'} onPress={() => setHidePassword(!hidePassword)} size={16} />
+                       </View>
+                   </View>
 
-            { !loading ? (
-                <TouchableOpacity style={defaultStyle.button} className={'items-center'} onPress={handleSubmit}>
-                    <Text style={defaultStyle.buttonText}>Submit Data</Text>
-                </TouchableOpacity>
-            ) : null }
+                   { !loading ? (
+                       <TouchableOpacity style={defaultStyle.button} className={'items-center'} onPress={handleSubmit}>
+                           <Text style={defaultStyle.buttonText}>Submit Data</Text>
+                       </TouchableOpacity>
+                   ) : null }
 
-            {loading ? <ActivityIndicator size={"small"} className={'my-5 text-blue-900'} /> : null}
+                   {loading ? <ActivityIndicator size={"small"} className={'my-5 text-blue-900'} /> : null}
 
-            <Text style={[defaultStyle.text, {position: 'absolute', bottom: 50, color: 'gray'}]}>Secured by
-                GeancoStem</Text>
-        </View>
+                   <Text style={[defaultStyle.text, { marginTop: 30, color: 'gray'}]}>Secured by
+                       GeancoStem</Text>
+               </View>
+           </ScrollView>
+       </KeyboardAvoidingView>
     )
 }
 
@@ -299,6 +321,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 50,
+        height: Dimensions.get('window').height,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#ededee'

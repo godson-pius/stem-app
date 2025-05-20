@@ -1,8 +1,9 @@
-import { Button, Image, Pressable, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native'
+import { Image, StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
-import { useNavigation, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { ISlideData } from '@/interface/slideData'
+import {useColorScheme} from "@/hooks/useColorScheme";
 
 interface SlideItemProps {
     data: ISlideData
@@ -20,8 +21,8 @@ const SlideItem = ({ data }: SlideItemProps) => {
                 />
             }>
             <View style={{ flex: 1, justifyContent: 'center', height: 450 }}>
-                <Text style={styles.middleText}>{data.text1}</Text>
-                <Text style={styles.middleText}>{data.text2}</Text>
+                <Text style={styles.middleText} className={useColorScheme() == 'light' ? 'text-black' : 'text-white'}>{data.text1}</Text>
+                <Text style={styles.middleText} className={useColorScheme() == 'light' ? 'text-black' : 'text-white'}>{data.text2}</Text>
 
 
                 <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('/(auth)')}>
@@ -37,7 +38,7 @@ export default SlideItem
 const styles = StyleSheet.create({
     btn: {
         width: '100%',
-        backgroundColor: '#CCA45C',
+        backgroundColor: '#1d5880',
         padding: 13,
         borderRadius: 10,
         marginTop: 50,

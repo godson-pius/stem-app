@@ -97,7 +97,7 @@ export default function TabTwoScreen() {
   }, [])
 
   return (
-      <SafeAreaView className="flex-1 bg-white">
+      <SafeAreaView className="flex-1 py-7 bg-white">
         <KeyboardAvoidingView
             className="flex-1"
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

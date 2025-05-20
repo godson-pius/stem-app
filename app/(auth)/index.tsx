@@ -1,15 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {
+    ActivityIndicator,
+    Alert, Dimensions,
+    Image, KeyboardAvoidingView, Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import {defaultStyle} from "@/utils/defaultStyle";
 import {loginUser} from "@/utils/firestore";
 import {readData, storeData} from "@/utils/storage";
 import {useRouter} from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Index = () => {
     const [email, setEmail] = useState<string>()
     const [password, setPassword] = useState<string>()
     const [loading, setLoading] = useState<boolean>(false)
     const [launch, setLaunch] = useState<boolean>(false)
+    const [hidePassword, setHidePassword] = useState<boolean>(true)
     const navigation = useRouter()
 
     // Handle the login submit
@@ -57,41 +69,51 @@ const Index = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Image style={styles.image} source={require('@/assets/images/logo.png')}/>
-            <Text style={[defaultStyle.text, styles.title]}>Start Learning</Text>
-            <Text style={defaultStyle.text}>Geanco Stems</Text>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <ScrollView className={'h-screen'}>
+                <View style={styles.container} className={'h-screen'}>
+                    <Image style={styles.image} source={require('@/assets/images/logo.png')}/>
+                    <Text style={[defaultStyle.text, styles.title]}>Start Learning</Text>
+                    <Text style={defaultStyle.text}>Geanco STEM</Text>
 
 
-            <View style={{marginTop: 30}}>
-                <Text style={[defaultStyle.label]}>Enter email</Text>
-                <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => setEmail(value)}/>
-            </View>
+                    <View style={{marginTop: 30}}>
+                        <Text style={[defaultStyle.label]}>Enter email</Text>
+                        <TextInput autoCapitalize='none' keyboardType={'email-address'} textContentType={'emailAddress'} autoCorrect={false} style={defaultStyle.input}
+                                   onChangeText={(value: string) => setEmail(value)}/>
+                    </View>
 
-            <View style={{marginTop: 30, marginBottom: 40}}>
-                <Text style={[defaultStyle.label]}>Enter password</Text>
-                <TextInput secureTextEntry={true} autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => setPassword(value)}/>
-            </View>
+                    <View style={{marginTop: 30, marginBottom: 40}}>
+                        <Text style={[defaultStyle.label]}>Enter password</Text>
+                        <View className={'flex-row items-center'} style={{width: 300}}>
+                            <TextInput secureTextEntry={hidePassword} autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                                       onChangeText={(value: string) => setPassword(value)}/>
+                            <Ionicons name={hidePassword ? 'eye' : 'eye-off'} onPress={() => setHidePassword(!hidePassword)} size={16} />
+                        </View>
+                    </View>
 
-            { !loading ? (
-                <>
-                    <TouchableOpacity style={defaultStyle.button} onPress={handleSubmit}>
-                        <Text style={defaultStyle.buttonText}>Login</Text>
-                    </TouchableOpacity>
+                    { !loading ? (
+                        <>
+                            <TouchableOpacity style={defaultStyle.button} onPress={handleSubmit}>
+                                <Text style={defaultStyle.buttonText}>Login</Text>
+                            </TouchableOpacity>
 
-                    <TouchableOpacity className={'font-medium mt-3'} onPress={() => navigation.push('/register')}>
-                        <Text>Not registered? Register</Text>
-                    </TouchableOpacity>
-                </>
-            ) : null }
+                            <TouchableOpacity className={'font-medium mt-3'} onPress={() => navigation.push('/register')}>
+                                <Text>Not registered? Register</Text>
+                            </TouchableOpacity>
+                        </>
+                    ) : null }
 
-            {loading ? <ActivityIndicator size={"small"} className={'my-5 text-blue-900'} /> : null}
+                    {loading ? <ActivityIndicator size={"small"} className={'my-5 text-blue-900'} /> : null}
 
-            <Text style={[defaultStyle.text, {position: 'absolute', bottom: 50, color: 'gray'}]}>Secured by
-                GeancoStem</Text>
-        </View>
+                    <Text style={[defaultStyle.text, { marginTop: 30, color: 'gray'}]}>Secured by
+                        GeancoStem</Text>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -101,6 +123,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 50,
+        height: Dimensions.get('window').height,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#ededee'

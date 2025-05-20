@@ -3,12 +3,12 @@ import React, { useRef } from 'react'
 import { sliderData } from '@/utils/sliderData'
 import SlideItem from './components/SlideItem'
 
-const index = () => {
+const Index = () => {
   const data = sliderData;
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   return (
-    <FlatList 
+    <FlatList
       data={data}
       renderItem={({ item }) => <SlideItem data={item} />}
       horizontal
@@ -21,4 +21,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

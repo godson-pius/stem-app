@@ -56,7 +56,7 @@ const Videos = () => {
     // })
 
     return (
-        <SafeAreaView>
+        <SafeAreaView className={'bg-white py-7 h-screen'}>
             <ScrollView
                 className={'h-screen'}
                 style={defaultStyle.container}

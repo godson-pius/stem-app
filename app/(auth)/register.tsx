@@ -1,4 +1,14 @@
-import {Alert, Dimensions, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {
+    Alert,
+    Dimensions,
+    Image,
+    KeyboardAvoidingView, Platform, ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native'
 import React, {ChangeEvent, useState} from 'react'
 import {defaultStyle} from '@/utils/defaultStyle'
 import {useRouter} from 'expo-router'
@@ -23,46 +33,53 @@ const Register = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Image style={styles.image} source={require('@/assets/images/logo.png')}/>
-            <Text style={[defaultStyle.text, styles.title]}>Start Learning</Text>
-            <Text style={defaultStyle.text}>Geanco Stems</Text>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <ScrollView>
+                <View style={styles.container}>
+                    <Image style={styles.image} source={require('@/assets/images/logo.png')}/>
+                    <Text style={[defaultStyle.text, styles.title]}>Start Learning</Text>
+                    <Text style={defaultStyle.text}>Geanco STEM</Text>
 
-            <View style={{marginTop: 60}}>
-                <Text style={[defaultStyle.label]}>Enter Full Name</Text>
-                <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value, "fullname")}/>
-            </View>
+                    <View style={{marginTop: 60}}>
+                        <Text style={[defaultStyle.label]}>Enter Full Name</Text>
+                        <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                                   onChangeText={(value: string) => handleInput(value, "fullname")}/>
+                    </View>
 
-            <View style={{marginTop: 30}}>
-                <Text style={[defaultStyle.label]}>Enter username</Text>
-                <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value.toLowerCase().replaceAll(' ', '-'), "username")}/>
-            </View>
+                    <View style={{marginTop: 30}}>
+                        <Text style={[defaultStyle.label]}>Enter username</Text>
+                        <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                                   onChangeText={(value: string) => handleInput(value.toLowerCase().replaceAll(' ', '-'), "username")}/>
+                    </View>
 
-            <View style={{marginTop: 30}}>
-                <Text style={[defaultStyle.label]}>Enter email</Text>
-                <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value, "email")}/>
-            </View>
+                    <View style={{marginTop: 30}}>
+                        <Text style={[defaultStyle.label]}>Enter email</Text>
+                        <TextInput autoCapitalize='none'  keyboardType={'email-address'} textContentType={'emailAddress'} autoCorrect={false} style={defaultStyle.input}
+                                   onChangeText={(value: string) => handleInput(value, "email")}/>
+                    </View>
 
-            <View style={{marginTop: 30, marginBottom: 40}}>
-                <Text style={[defaultStyle.label]}>Enter phone number</Text>
-                <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
-                           onChangeText={(value: string) => handleInput(value, "number")}/>
-            </View>
+                    <View style={{marginTop: 30, marginBottom: 40}}>
+                        <Text style={[defaultStyle.label]}>Enter phone number</Text>
+                        <TextInput autoCapitalize='none' autoCorrect={false} style={defaultStyle.input}
+                                   onChangeText={(value: string) => handleInput(value, "number")}/>
+                    </View>
 
-            <TouchableOpacity style={defaultStyle.button} onPress={handleSubmit}>
-                <Text style={defaultStyle.buttonText}>Next</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity style={defaultStyle.button} onPress={handleSubmit}>
+                        <Text style={defaultStyle.buttonText}>Next</Text>
+                    </TouchableOpacity>
 
-            <TouchableOpacity className={'font-medium mt-3'} onPress={() => navigation.push('/(auth)')}>
-                <Text>Already registered? Login</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity className={'font-medium mt-3'} onPress={() => navigation.push('/(auth)')}>
+                        <Text>Already registered? Login</Text>
+                    </TouchableOpacity>
 
-            <Text style={[defaultStyle.text, {position: 'absolute', bottom: 50, color: 'gray'}]}>Secured by
-                GeancoStem</Text>
-        </View>
+                    <Text style={[defaultStyle.text, {marginTop: 30, color: 'gray'}]}>Secured by
+                        GeancoStem</Text>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -72,6 +89,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 50,
+        height: Dimensions.get('window').height,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#ededee'

@@ -8,7 +8,7 @@ import {useLocalSearchParams} from "expo-router";
 import {getAllTopicsForACourse} from "@/utils/firestore";
 import {tls} from "node-forge";
 
-const lectures = () => {
+const Lectures = () => {
   const [topics, setTopics] = useState<ITopic[]>([])
   const [refreshing, setRefreshing] = React.useState(false);
   const args = useLocalSearchParams();
@@ -34,7 +34,6 @@ const lectures = () => {
       name: args.name
     }
     const res = await getAllTopicsForACourse(courseDetails)
-    console.log(res)
     if (res) {
       setTopics(res)
     } else {
@@ -50,7 +49,7 @@ const lectures = () => {
 
 
   return (
-    <SafeAreaView>
+      <SafeAreaView className={'bg-white py-7 h-screen'}>
       <View style={defaultStyle.container}>
         <Text style={[defaultStyle.text, { fontWeight: 'bold', fontSize: 20 }]}>{args.name}</Text>
         <Text style={[{ color: 'gray', marginTop: 5, fontFamily: 'epilogue-m' }]}>{topics.length} Topics</Text>
@@ -76,4 +75,4 @@ const lectures = () => {
   )
 }
 
-export default lectures
+export default Lectures

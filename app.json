@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.godsonpius.stemapp"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "69c3169d-07af-4b19-8d9f-936e60fa3e55"
+      }
     }
   }
 }

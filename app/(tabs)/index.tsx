@@ -1,19 +1,15 @@
 import {defaultStyle} from '@/utils/defaultStyle';
 import {Ionicons} from '@expo/vector-icons';
 import {
-    Image,
     StyleSheet,
     SafeAreaView,
     View,
     Text,
     TextInput,
-    TouchableOpacity,
-    ImageBackground,
     ScrollView, Alert, RefreshControl
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Subjects from '@/components/Subjects';
-import {subjectData} from '@/utils/fakeData';
 import {IStudent, ISubject} from "@/interface";
 import {getAllCourse} from "@/utils/firestore";
 import {clearStorage, readData} from "@/utils/storage";
@@ -69,7 +65,7 @@ export default function HomeScreen() {
     }, []);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView className={'bg-white py-7 h-screen'}>
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
                 {/* Header */}
                 <View style={[styles.container]}>
@@ -126,7 +122,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 5,
+        marginTop: 10,
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
