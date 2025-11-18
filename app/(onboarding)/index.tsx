@@ -1,7 +1,18 @@
-import { Button, Image, Pressable, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Dimensions, FlatList } from 'react-native'
-import React, { useRef } from 'react'
-import { sliderData } from '@/utils/sliderData'
-import SlideItem from './components/SlideItem'
+import {
+  Button,
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+} from "react-native";
+import React, { useRef } from "react";
+import { sliderData } from "@/utils/sliderData";
+import SlideItem from "./components/SlideItem";
 
 const Index = () => {
   const data = sliderData;
@@ -17,8 +28,8 @@ const Index = () => {
       bounces={false}
       keyExtractor={(item: any) => item.id}
       viewabilityConfig={viewConfig}
-     />
-  )
-}
+    />
+  );
+};
 
-export default Index
+export default Index;
